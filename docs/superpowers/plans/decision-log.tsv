@@ -1,0 +1,6 @@
+ts	phase	decision	why	evidence	result
+2026-10-16T02:10:00Z	frame	The remaining work is six tasks on top of the pure loop	The loop, mailbox, and Kev body already exist and were measured green	commit 7f150ff	35 passed in 0.35s
+2026-10-16T02:12:00Z	frame	One plan, not four specs	Each edge is an adapter of that loop, and a second spec would restate the same endings	docs/superpowers/plans/2026-10-15-kev-desktop-control.md	open
+2026-10-16T02:14:00Z	sequence	The first new test checks a button center against its window rect	A wrong pixel space would make every later click miss, and no scale factor is allowed	docs/superpowers/plans/2026-10-15-kev-desktop-control.md	open
+2026-10-16T02:16:00Z	scope	Ear and the writer may land in either order after the scan task	They do not import each other	docs/superpowers/plans/2026-10-15-kev-desktop-control.md	open
+2026-10-16T02:18:00Z	done	Done means pytest passes and the owned window receives one Save click and the text hello	A disarmed gate must leave the field empty	docs/superpowers/plans/2026-10-15-kev-desktop-control.md	open
