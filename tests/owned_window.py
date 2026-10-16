@@ -91,6 +91,12 @@ _user32.SendMessageW.restype = ctypes.c_ssize_t
 _user32.ShowWindow.argtypes = [wintypes.HWND, ctypes.c_int]
 _user32.SetForegroundWindow.argtypes = [wintypes.HWND]
 _user32.SetForegroundWindow.restype = wintypes.BOOL
+_user32.SetWindowPos.argtypes = [
+    wintypes.HWND, wintypes.HWND, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int, wintypes.UINT
+]
+_user32.SetWindowPos.restype = wintypes.BOOL
+_SWP_NOACTIVATE = 0x0010
+_SWP_SHOW = 0x0001 | 0x0002 | _SWP_NOACTIVATE | 0x0040
 _kernel32.GetModuleHandleW.argtypes = [wintypes.LPCWSTR]
 _kernel32.GetModuleHandleW.restype = wintypes.HINSTANCE
 
@@ -161,6 +167,7 @@ class OwnedWindow:
         tb: TracebackType | None,
     ) -> None:
         if self.hwnd:
+            self._place(-2)
             _user32.PostMessageW(self.hwnd, _WM_CLOSE, 0, 0)
         self._thread.join(5)
 
@@ -201,6 +208,13 @@ class OwnedWindow:
     def focus(self) -> None:
         _user32.ShowWindow(self.hwnd, 9)  # SW_RESTORE
         _user32.SetForegroundWindow(self.hwnd)
+
+    def show_without_activating(self) -> None:
+        """Put the window on top without taking keyboard focus or sending input."""
+        self._place(-1)
+
+    def _place(self, after: int) -> None:
+        _user32.SetWindowPos(self.hwnd, wintypes.HWND(after), 0, 0, 0, 0, _SWP_SHOW)
 
 
 def owned_window(button: str, edit_label: str) -> OwnedWindow:

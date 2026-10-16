@@ -7,10 +7,28 @@ name = "kev-control"
 version = "0.1.0"
 description = "Caps Lock armed voice control for Windows, driven by a local Kev"
 requires-python = ">=3.12"
-dependencies = ["httpx>=0.27"]
+dependencies = ["httpx>=0.27", "comtypes>=1.4"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]
+windows = [
+    "pystray>=0.19",
+    "pillow>=10",
+    "sounddevice>=0.5",
+    "numpy>=1.26",
+    "faster-whisper>=1.0",
+    "llama-cpp-python>=0.3",
+    "winrt-runtime",
+    "winrt-Windows.Foundation",
+    "winrt-Windows.Foundation.Collections",
+    "winrt-Windows.Globalization",
+    "winrt-Windows.Graphics.Imaging",
+    "winrt-Windows.Media.Ocr",
+    "winrt-Windows.Storage.Streams",
+]
+
+[project.scripts]
+kev-control = "kev_control.app:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/kev_control"]
